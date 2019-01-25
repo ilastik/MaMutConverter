@@ -15,13 +15,15 @@ source:
 
 build:
   number: 0
-  string: py{{CONDA_PY}}_{{PKG_BUILDNUM}}_g{{GIT_FULL_HASH[:7]}}
+  # omitting h{{PKG_HASH}} here, as the dependencies are not pinned
+  string: py_{{PKG_BUILDNUM}}_g{{GIT_FULL_HASH[:7]}}
+  noarch: python
+  script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
   build:
     - python
-    - setuptools
-
+    - pip
   run:
     - python
     - h5py
